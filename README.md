@@ -1,5 +1,5 @@
-<h1 align="center">THE FINAL MVP PROJECT TAKY EDITION </h1>
-<h1 align="center">POWERED BY ORBIS MOBILE TEAM </h1>
+<h1 align="center">MVP PROJECT TAKY EDITION v.1</h1>
+<h2 align="center">POWERED BY ORBIS MOBILE TEAM </h2>
 
 <p align="center">
     <img src="Screenshots/rice.png" alt="icon" width="25%"/>
