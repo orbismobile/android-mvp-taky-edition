@@ -4,7 +4,6 @@ import com.elcomercio.mvp_dagger2_kotlin.data.datasource.UserDataSource
 import com.elcomercio.mvp_dagger2_kotlin.data.repository.local.db.dao.UserDao
 import com.elcomercio.mvp_dagger2_kotlin.data.repository.local.db.entity.UserEntity
 import com.elcomercio.mvp_dagger2_kotlin.utils.AppExecutors
-import javax.inject.Inject
 import javax.inject.Singleton
 
 /**
@@ -16,12 +15,12 @@ import javax.inject.Singleton
 
 @Singleton
 class UserLocalDataSource
-constructor(val appExecutors: AppExecutors, val userDao: UserDao) : UserDataSource {
+constructor(private val appExecutors: AppExecutors, private val userDao: UserDao) : UserDataSource {
 
     override fun getUsers(getUserCallback: UserDataSource.GetUserCallback) {
         val runnable = Runnable {
             val userList = userDao.getUsers()
-            appExecutors.mainThread().execute {
+            appExecutors.mainThread.execute {
                 if (userList.isEmpty()) {
                     getUserCallback.onGetUserError("Any user available")
                 } else {
@@ -29,27 +28,27 @@ constructor(val appExecutors: AppExecutors, val userDao: UserDao) : UserDataSour
                 }
             }
         }
-        appExecutors.diskIO().execute(runnable)
+        appExecutors.diskIO.execute(runnable)
     }
 
     override fun saveUser(userEntity: UserEntity) {
         val saveRunnable = Runnable {
             userDao.insertUser(userEntity)
         }
-        appExecutors.diskIO().execute(saveRunnable)
+        appExecutors.diskIO.execute(saveRunnable)
     }
 
     override fun updateUser(userEntity: UserEntity) {
         val updateRunnable = Runnable {
             userDao.updateUser(userEntity)
         }
-        appExecutors.diskIO().execute(updateRunnable)
+        appExecutors.diskIO.execute(updateRunnable)
     }
 
     override fun deleteUser(userEntity: UserEntity) {
         val deleteRunnable = Runnable {
             userDao.deleteUser(userEntity)
         }
-        appExecutors.diskIO().execute(deleteRunnable)
+        appExecutors.diskIO.execute(deleteRunnable)
     }
 }
