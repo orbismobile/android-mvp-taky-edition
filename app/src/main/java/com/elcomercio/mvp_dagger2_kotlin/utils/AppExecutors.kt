@@ -12,19 +12,7 @@ import javax.inject.Singleton
  */
 
 @Singleton
-class AppExecutors(private val diskIO: Executor, private val networkIO: Executor, private val mainThread: Executor) {
-
-    fun diskIO(): Executor {
-        return diskIO
-    }
-
-    fun networkIO(): Executor {
-        return networkIO
-    }
-
-    fun mainThread(): Executor {
-        return mainThread
-    }
+class AppExecutors(val diskIO: Executor, val networkIO: Executor, val mainThread: Executor) {
 
     class MainThreadExecutor : Executor {
         private val mainThreadHandler = Handler(Looper.getMainLooper())

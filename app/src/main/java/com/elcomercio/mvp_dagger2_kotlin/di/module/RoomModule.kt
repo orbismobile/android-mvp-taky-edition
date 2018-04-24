@@ -4,7 +4,6 @@ import android.app.Application
 import android.arch.persistence.room.Room
 import com.elcomercio.mvp_dagger2_kotlin.data.repository.local.db.SampleDataBase
 import com.elcomercio.mvp_dagger2_kotlin.utils.AppExecutors
-import com.elcomercio.mvp_dagger2_kotlin.utils.DiskIOThreadExecutor
 import dagger.Module
 import dagger.Provides
 import java.util.concurrent.Executors
@@ -31,7 +30,7 @@ class RoomModule {
 
     @Singleton
     @Provides
-    fun provideAppExecutors() = AppExecutors(DiskIOThreadExecutor(),
+    fun provideAppExecutors() = AppExecutors(Executors.newSingleThreadExecutor(),
             Executors.newFixedThreadPool(THREAD_COUNT),
             AppExecutors.MainThreadExecutor())
 
